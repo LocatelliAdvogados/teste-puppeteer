@@ -24,11 +24,11 @@ async function generatePdfFromHtml() {
 
     const {executablePath} = require('puppeteer')
     
-    const browser = await puppeteer.launch({
-        headless:false,
-        args: ["--no-sandbox"],
-        executablePath: executablePath(),
-    });
+    // const browser = await puppeteer.launch({
+    //     headless:false,
+    //     args: ["--no-sandbox"],
+    //     executablePath: executablePath(),
+    // });
 
     // Create a new page
     const page = await browser.newPage();
