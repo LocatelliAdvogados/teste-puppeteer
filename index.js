@@ -27,7 +27,7 @@ async function generatePdfFromHtml() {
     //     executablePath: __dirname + '/../../chromium-browser'
     // })
 
-    const {executablePath} = require('puppeteer')
+    // const {executablePath} = require('puppeteer')
     
     // const browser = await puppeteer.launch({
     //     headless:false,
