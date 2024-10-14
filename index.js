@@ -5,9 +5,14 @@
 
 (async() => {
 
-  const browser = await puppeteer.launch({
-    executablePath: '/usr/bin/chromium-browser'
-  })
+  // const browser = await puppeteer.launch({
+  //   executablePath: '/usr/bin/chromium-browser'
+  // })
+
+  let browser = await puppeteer.launch({ 
+    executablePath: '/usr/bin/chromium-browser', 
+    args: [ '--disable-gpu', '--disable-setuid-sandbox', '--no-sandbox', '--no-zygote' ]
+  }) 
 
   console.log('browser', browser)
 
