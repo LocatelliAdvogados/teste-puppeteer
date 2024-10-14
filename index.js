@@ -1,4 +1,4 @@
-// const puppeteer = require('puppeteer');
+const puppeteer = require('puppeteer');
 
 // const username = process.env.USERNAME || 'ebidel';
 // const searchable = process.argv.includes('--searchable');
