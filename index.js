@@ -21,10 +21,13 @@ async function generatePdfFromHtml() {
     // const browser = await puppeteer.launch({
     //     executablePath: __dirname + '/../../chromium-browser'
     // })
+
+    const {executablePath} = require('puppeteer')
     
     const browser = await puppeteer.launch({
         headless:false,
         args: ["--no-sandbox"]
+        executablePath: executablePath(),
     });
 
     // Create a new page
