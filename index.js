@@ -1,29 +1,99 @@
 const puppeteer = require('puppeteer');
-const fs = require('fs');
 
-async function run () {
-  const browser = await puppeteer.launch({
-    executablePath: '/usr/bin/google-chrome-stable',
-    args: ['--no-sandbox'],
-    defaultViewport: {width: 1920, height: 1080}
-  });
-  const page = await browser.newPage();
-  await page.goto('https://www.google.com');
-  await sleep(3000);
+const username = process.env.USERNAME || 'ebidel';
+const searchable = process.argv.includes('--searchable');
 
-  await page.screenshot({path: 'screenshot.png'});
-  const html = await page.content();
-  fs.writeFileSync('source.htm', html);
+(async() => {
 
-  browser.close();
+const browser = await puppeteer.launch();
+
+const page = await browser.newPage();
+await page.setViewport({width: 1200, height: 800, deviceScaleFactor: 2});
+await page.goto(`https://twitter.com/${username}`);
+
+// Can't use elementHandle.click() because it clicks the center of the element
+// with the mouse. On tweets like https://twitter.com/ebidel/status/915996563234631680
+// there is an embedded card link to another tweet that it clicks.
+await page.$eval(`.tweet[data-screen-name="${username}"]`, tweet => tweet.click());
+await page.waitForSelector('.tweet.permalink-tweet', {visible: true});
+
+const overlay = await page.$('.tweet.permalink-tweet');
+const screenshot = await overlay.screenshot({path: 'tweet.png'});
+
+if (searchable) {
+  await page.evaluate(tweet => {
+    const width = getComputedStyle(tweet).width;
+    tweet = tweet.cloneNode(true);
+    tweet.style.width = width;
+    document.body.innerHTML = `
+      <div style="display:flex;justify-content:center;align-items:center;height:100vh;">;
+        ${tweet.outerHTML}
+      </div>
+    `;
+  }, overlay);
+} else {
+  await page.setContent(`
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <style>
+          html, body {
+            height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #fafafa;
+          }
+          img {
+            max-width: 60%;
+            box-shadow: 3px 3px 6px #eee;
+            border-radius: 6px;
+          }
+        </style>
+      </head>
+      <body>
+        <img src="data:img/png;base64,${screenshot.toString('base64')}">
+      </body>
+    </html>
+  `);
 }
-run();
 
-function sleep(ms) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, ms);
-  });
-} 
+await page.pdf({path: 'tweet.pdf', printBackground: true});
+
+await browser.close();
+
+})();
+
+
+
+
+// const puppeteer = require('puppeteer');
+// const fs = require('fs');
+
+// async function run () {
+//   const browser = await puppeteer.launch({
+//     executablePath: '/usr/bin/google-chrome-stable',
+//     args: ['--no-sandbox'],
+//     defaultViewport: {width: 1920, height: 1080}
+//   });
+//   const page = await browser.newPage();
+//   await page.goto('https://www.google.com');
+//   await sleep(3000);
+
+//   await page.screenshot({path: 'screenshot.png'});
+//   const html = await page.content();
+//   fs.writeFileSync('source.htm', html);
+
+//   browser.close();
+// }
+// run();
+
+// function sleep(ms) {
+//   return new Promise((resolve) => {
+//     setTimeout(resolve, ms);
+//   });
+// } 
 
 
 
