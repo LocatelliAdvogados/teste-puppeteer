@@ -2,7 +2,7 @@ const puppeteer = require('puppeteer');
 
 async function generatePDFfromHTML(htmlContent, outputPath) {
   const browser = await puppeteer.launch({
-    executablePath: '/usr/bin/chromium-browser',
+    executablePath: '/usr/bin/chromium',
   });
   const page = await browser.newPage();
   await page.setContent(htmlContent);
