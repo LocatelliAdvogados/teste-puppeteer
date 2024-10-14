@@ -4,8 +4,12 @@ module.exports = {
     generatePdfFromHtml,
 }
 
-const pdf = generatePdfFromHtml()
+ (async() => {
+const pdf = await generatePdfFromHtml()
 console.log('pdf', pdf)
+ })();
+
+
 
 async function generatePdfFromHtml() {
     let os = require('os')
