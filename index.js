@@ -1,15 +1,13 @@
 const puppeteer = require('puppeteer-core')
 
-module.exports = {
-    generatePdfFromHtml,
-}
+// module.exports = {
+//     generatePdfFromHtml,
+// }
 
- (async() => {
-const pdf = await generatePdfFromHtml()
-console.log('pdf', pdf)
- })();
-
-
+(async() => {
+    const pdf = await generatePdfFromHtml()
+    console.log('pdf', pdf)
+ })()
 
 async function generatePdfFromHtml() {
     let os = require('os')
