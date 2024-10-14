@@ -26,7 +26,7 @@ async function generatePdfFromHtml() {
     
     const browser = await puppeteer.launch({
         headless:false,
-        args: ["--no-sandbox"]
+        args: ["--no-sandbox"],
         executablePath: executablePath(),
     });
 
