@@ -8,35 +8,7 @@ function generatePDFfromHTML(htmlContent, outputPath) {
 }
 
 // Usage
-const htmlContent = `
-
-
-                    <style>
-                        
-
-                        table {
-                            margin: 0;
-                            border-collapse: collapse;
-                        }
-
-                        td, th {
-                            background: lightblue;
-                            border: 3px solid white;
-                            padding: 10px;
-                            text-align: left;
-                        }
-
-                        body {
-                            font-family: "Source Sans 3", sans-serif;
-                            margin: 0;
-                            -webkit-print-color-adjust: exact;
-                        }
-
-                        div {
-                            background: lightblue;
-                        }
-                    </style>
-                    <table style="">
+const htmlContent = `<table style="">
                         <tr>
                             <th>aaaaaaaaaaa</th>
                             <th>b</th>
@@ -51,7 +23,5 @@ const htmlContent = `
                             <td>2a</td>
                             <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>
                         </tr>
-                    </table>
-                    
-`
+                    </table>`
 generatePDFfromHTML(htmlContent, 'custom.pdf');
