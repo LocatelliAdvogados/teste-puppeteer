@@ -1,4 +1,4 @@
-const jsPDF = require('jspdf');
+const { jsPDF } = require("jspdf"); // will automatically load the node version
 
 function generatePDFfromHTML(htmlContent, outputPath) {
   const doc = new jsPDF();
